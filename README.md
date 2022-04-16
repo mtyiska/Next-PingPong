@@ -2,42 +2,18 @@
 
 ## Getting Started - Creating the Next.js Application
 
-To get started, we first need to create a new Next.js project.
-
-```bash
-$ npx create-next-app amplify-next
-```
-
-Now change into the new app directory & install AWS Amplify, AWS Amplify UI React and a few other libraries we'll be using:
-
-```bash
-$ cd amplify-next
-$ npm install aws-amplify @aws-amplify/ui-react react-simplemde-editor@4.1.5 react-markdown uuid
-```
-
-Since we will be using Tailwind, let's also install the tailwind dependencies:
+To get started, clone the repo & change into the directory
 
 ```sh
-npm install tailwindcss@latest postcss@latest autoprefixer@latest @tailwindcss/typography
-```
+git clone https://github.com/mtyiska/Next-PingPong.git
 
-Next, create the necessary Tailwind configuration files:
+cd Next-PingPong
+```
 
 ```sh
-npx tailwindcss init -p
+npm install
+
 ```
-
-Finally, replace the styles in **styles/globals.css** with the following:
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-## Installing the CLI & Initializing a new AWS Amplify Project
-
-### Installing the CLI
 
 Next, we'll install the AWS Amplify CLI:
 
@@ -68,85 +44,17 @@ $ amplify configure
 - Profile Name: amplify-cli-user
 ```
 
-### Initializing A New Project
+### Initializing the Project
 
-```bashin
-$ amplify init
-
-- Enter a name for the project: amplifynext
-- Initialize the project with the above configuration? No
-- Enter a name for the environment: dev
-- Choose your default editor: Visual Studio Code (or your default editor)
-- Please choose the type of app that youre building: javascript
-- What javascript framework are you using: react
-- Source Directory Path: . (this sets the base directory to the root directory)
-- Distribution Directory Path: .next
-- Build Command: npm run-script build
-- Start Command: npm run-script start
-- Select the authentication method you want to use: AWS profile
-- Please choose the profile you want to use: amplify-cli-user (or your preferred profile)
-```
-
-The Amplify CLI has initialized a new project & you will see a new folder: \_
-
-To view the status of the amplify project at any time, you can run the Amplify `status` command:
+add the amplify project
 
 ```sh
-$ amplify status
+$ amplify env add
+
+$amplify push
 ```
 
-To view the amplify project in the Amplify console at any time, run the `console` command:
-
-```sh
-$ amplify console
-```
-
-## Adding an AWS AppSync GraphQL API
-
-To add a GraphQL API, we can use the following command:
-
-```sh
-$ amplify add api
-
-The CLI should open this GraphQL schema in your text editor.
-
-Update the schema:
-
-After saving the schema, go back to the CLI and press enter.
-
-### Deploying the API
-
-To deploy the API, run the push command:
-
-```
-
-$ amplify push
-
-Now the API is live and you can start interacting with it!
-
-### Testing the API
-
-To test it out we can use the GraphiQL editor in the AppSync dashboard. To open the AppSync dashboard, run the following command:
-
-```sh
-$ amplify console api
-
-> Choose GraphQL
-```
-
-You should be able to view the list of posts. You will not yet be able to click on a post to navigate to the detail view, that is coming up later.
-
-## Adding authentication
-
-$ amplify add auth
-
-To deploy the authentication service, you can run the push command:
-
-```sh
-$ amplify push
-
-? Are you sure you want to continue? Yes
-```
+### Running dev
 
 Next, run the app:
 

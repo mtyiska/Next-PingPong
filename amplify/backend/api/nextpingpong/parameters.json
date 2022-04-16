@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "nextpingpong",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authnextpingpongf649375e",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "nextpingpong",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/home/michael/Desktop/projects/shrine/next-pingpong/amplify/backend/api/nextpingpong/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authnextpingpongf649375e"
+      }
+    ]
+  }
+}

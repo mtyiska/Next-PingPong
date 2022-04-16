@@ -1,0 +1,25 @@
+type Game
+  @model
+  @auth(rules: [{ allow: owner }, { allow: public, operations: [read] }]) {
+  id: ID!
+  name: String!
+  players: [Player] @hasMany
+  winner: String!
+}
+
+type Player
+  @model
+  @auth(rules: [{ allow: owner }, { allow: public, operations: [read] }]) {
+  id: ID!
+  playerByRank: String!
+    @index(
+      name: "playerByRank"
+      queryField: "listPlayersByRank"
+      sortKeyFields: ["wins"]
+    )
+  wins: Int!
+  score: Int!
+  game: Game @belongsTo
+  name: String!
+    @index(name: "byName", queryField: "playerByName", sortKeyFields: ["id"])
+}

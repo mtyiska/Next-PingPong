@@ -12,17 +12,12 @@
  function AuthFlow() {
    const [formState, updateFormState] = useState(initialFormState);
    const {authenticateUser} = useAuth()
- 
    const [user, updateUser] = useState<any>(null);
  
    const checkUser = async () => {
      try {
        const user = await Auth.currentAuthenticatedUser();
- 
        updateUser(user);
- 
-      //  console.log("got user", user);
- 
        updateFormState(() => ({ ...formState, formType: "signedIn" }));
      } catch (err) {
        console.log("checkUser error", err);
@@ -30,23 +25,16 @@
      }
    };
  
-   // Skip this if you're not using Hub. You can call updateFormState function right
-   // after the Auth.signOut() call in the button.
    const setAuthListener = async () => {
      Hub.listen("auth", (data) => {
        switch (data.payload.event) {
-         case "signOut":
-          //  console.log(data);
- 
+         case "signOut": 
            updateFormState(() => ({
              ...formState,
              formType: "signIn",
            }));
- 
            break;
          case "signIn":
-          //  console.log(data);
- 
            break;
        }
      });
@@ -74,74 +62,83 @@
  
    const confirmSignUp = async () => {
      const { email, authCode } = formState;
- 
      await Auth.confirmSignUp(email, authCode);
- 
      updateFormState(() => ({ ...formState, formType: "signIn" }));
    };
  
    const signIn = async () => {
      const { email, password } = formState;
- 
      await Auth.signIn(email, password);
      authenticateUser()
- 
      updateFormState(() => ({ ...formState, formType: "signedIn" }));
    };
- 
-   // console.log(formType);
  
    return (
      <>
  
        {formType === "signUp" && (
-         <div>
-             <input name="email" onChange={onChange} placeholder="email" />
-           <input
-             name="password"
-             type="password"
-             onChange={onChange}
-             placeholder="password"
-           />
- 
-           <button onClick={signUp}>Sign Up</button>
- 
-           <p>Already signed up?</p>
- 
-           <button
-             onClick={() =>
-               updateFormState(() => ({
-                 ...formState,
-                 formType: "signIn",
-               }))
-             }
-           >
-             Sign In instead
-           </button>
+        <div className="flex justify-center">
+          <div className="w-1/2 flex flex-col pb-12">
+             <input className="mt-8 border rounded p-4"
+             name="email" onChange={onChange} placeholder="email" />
+              <input
+                className="mt-8 border rounded p-4"
+                name="password"
+                type="password"
+                onChange={onChange}
+                placeholder="password"
+              />
+              <button 
+              className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg"
+              onClick={signUp}>Sign Up</button>
+              <div className="flex justify-center cursor-pointer py-3 mt-3 bg-blue-500">
+                <button
+                  onClick={() =>
+                    updateFormState(() => ({
+                      ...formState,
+                      formType: "signIn",
+                    }))
+                  }
+                  >
+                  Already signed up? Sign In instead
+                </button>
+             </div>
+          </div>
          </div>
        )}
  
        {formType === "confirmSignUp" && (
-         <div>
-           <input
-             name="authCode"
-             onChange={onChange}
-             placeholder="cnfirm auth code"
-           />
-           <button onClick={confirmSignUp}>Confirm Sign up</button>
+         <div className="flex justify-center">
+          <div className="w-1/2 flex flex-col pb-12">
+            <input
+              className="mt-8 border rounded p-4"
+              name="authCode"
+              onChange={onChange}
+              placeholder="cnfirm auth code"
+            />
+            <button 
+            className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg"
+            onClick={confirmSignUp}>Confirm Sign up</button>
+          </div>
          </div>
        )}
  
        {formType === "signIn" && (
-         <div>
-           <input name="email" onChange={onChange} placeholder="email" />
+        <div className="flex justify-center">
+          <div className="w-1/2 flex flex-col pb-12">
+           <input 
+           className="mt-8 border rounded p-4"
+           name="email" onChange={onChange} placeholder="email" />
            <input
+            className="mt-8 border rounded p-4"
              name="password"
              type="password"
              onChange={onChange}
              placeholder="password"
            />
-           <button onClick={signIn}>Sign In</button>
+           <button 
+           className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg"
+           onClick={signIn}>Sign In</button>
  
            <p>No account yet?</p>
  
@@ -156,6 +153,7 @@
              Sign Up now
            </button>
          </div>
+        </div>
        )}
  
        {user && formType === "signedIn" && (
